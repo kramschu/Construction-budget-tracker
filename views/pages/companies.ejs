@@ -1,0 +1,80 @@
+<!-- views/pages/index.ejs -->
+
+<!--  Doctype and head tags -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ('../partials/head') %>
+</head>
+<body class="container">
+
+<!-- Header stub -->
+<header>
+    <%- include ('../partials/dashboardHeader') %>
+</header>
+
+<main>
+    <!-- primary div -->
+    <div class="jumbotron">
+        <h1>Companies</h1>
+        <h3>View and add companies below.</h3><br>
+        <h5>Add a new company</h5>
+        <!--  Form for adding a new company to the database -->
+        <form id="addCompanyForm" method="POST" action="/AddCompany">
+            <label for="cname">Company Name:</label><br>
+            <input type="text" id="cname" name="cname" required><br><br>
+            <label for="cbudget">Company Budget:</label><br>
+            <input type="number" id="cbudget" name="cbudget" min="0"><br><br>
+            <label for="texpenses">Total Expenses:</label><br>
+            <input type="number" id="texpenses" name="texpenses" min="0"><br><br>
+            <label for="trevenue">Total Revenue:</label><br>
+            <input type="number" id="trevenue" name="trevenue"><br><br>
+            <label for="hqlocation">HQ Location:</label><br>
+            <input type="text" id="hqlocation" name="hqlocation"><br><br>
+            <input type="submit" value="Submit"><br>
+        </form>       
+        <br>
+
+        <!-- Table for displaying companies -->
+        <h5>Browse existing companies</h5>
+        <table>
+        <thead>
+        <tr>
+            <th>Company ID</th>
+            <th>Company Name</th>
+            <th>Company Budget</th>
+            <th>Total Expenses</th>
+            <th>Total Revenue</th>
+            <th>HQ Location</th>
+        </thead>
+        <tbody>
+        <!--  This loop iterates over each returned row and populates each td with the row's attributes -->
+        <% results.forEach(function(thing){ %>
+        <tr>
+            <td><%= thing.company_id %></td>
+            <td><%= thing.company_name %></td>
+            <td><%= thing.budget %></td>
+            <td><%= thing.total_expenses %></td>
+            <td><%= thing.total_revenue %></td>
+            <td><%= thing.hq_location %></td>
+        </tr>
+        <% }) %>
+        </tbody>
+        </table>
+        <!-- Fix table layout -->
+        <style type="text/css">
+        table {
+        border-collapse: separate;
+        margin-left: -12px !important;
+        }
+        </style> 
+    </div>
+</main>
+
+<!-- Footer stub -->
+<footer>
+    <%- include ('../partials/footer') %>
+</footer>
+
+</body>
+</html>

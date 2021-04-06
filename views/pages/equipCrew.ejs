@@ -1,0 +1,91 @@
+<!-- views/pages/index.ejs -->
+
+<!--  Doctype and head tags -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ('../partials/head') %>
+</head>
+<body class="container">
+
+<!--  Header stub -->
+<header>
+    <%- include ('../partials/dashboardHeader') %>
+</header>
+
+<main>
+	<!-- primary div -->
+    <div class="jumbotron">
+        <h1>Equip:Crew M:M Table</h1>
+        <h3>Add, view, and delete relationships between equipment and crews below.</h3>
+		<br>
+		<h5>Add a new relationship</h5>
+		<!-- Form for adding a new relationship -->
+		<form id="addEquipCrewForm" method="POST" action="/AddEquipCrew">
+			<label for="eid">Equipment ID</label><br>
+			<select type="text" id="eid" name="eid">
+			<!-- Loops over all rows in Equipment to create the FK dropdown -->
+			<% equipResults.forEach(function(equip){ %>
+				<option value="<%= equip.equip_id %>"><%= equip.equip_name %></option>
+			<% }) %>
+			</select><br><br>
+			<label for="cid">Crew ID:</label><br>
+			<select type="text" id="cid" name="cid">
+			<!-- Loops over all rows in Crews to create the FK dropdown -->
+			<% crewResults.forEach(function(crew){ %>
+				<option value="<%= crew.crew_id %>"><%= crew.crew_name %></option>
+			<% }) %>
+			</select><br><br>
+			<input type="submit" value="Submit"><br>
+		</form>
+
+		<br>
+		<h5>Browse existing relationships</h5>
+		<!-- Table for displaying rows in Equip_crew -->
+		<table>
+		<thead>
+		<tr>
+			<th>Relation ID</th>
+			<th>Equipment ID</th>
+			<th>Equipment Name</th>
+			<th>Crew ID</th>
+			<th>Crew Name</th>
+			<th></th>
+		</thead>
+		<tbody>
+		<!--  This loop iterates over each returned row and populates each td with the row's attributes -->
+		<% results.forEach(function(thing){ %>
+        <tr>
+			<td><%= thing.relation_id %></td>
+			<td><%= thing.equip_id %></td>
+			<td><%= thing.equip_name %></td>
+			<td><%= thing.crew_id %></td>
+			<td><%= thing.crew_name %></td>
+			<td>
+				<!--  Form for deleting this row -->
+				<form id="deleteEquipCrewForm" method="POST" action="/deleteEquipCrew">
+					<input type="hidden" id="rid" name="rid" value="<%= thing.relation_id %>">
+					<button type="submit">Delete</button>
+				</form>		
+			</td>
+		</tr>
+      <% }) %>
+	  </tbody>
+	  </table>
+	  <!-- Fix table layout -->
+	  <style type="text/css">
+	  table {
+		border-collapse: separate;
+		margin-left: -12px !important;
+		}
+	  </style>
+    </div>
+</main>
+
+<!--  Footer stub -->
+<footer>
+    <%- include ('../partials/footer') %>
+</footer>
+
+</body>
+</html>

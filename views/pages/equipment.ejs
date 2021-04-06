@@ -1,0 +1,80 @@
+<!-- views/pages/index.ejs -->
+
+<!--  Doctype and head tags -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ('../partials/head') %>
+</head>
+<body class="container">
+
+<!-- Header stub -->
+<header>
+    <%- include ('../partials/dashboardHeader') %>
+</header>
+
+<main>
+    <!-- primary div -->
+    <div class="jumbotron">
+        <h1>Equipment</h1>
+        <h3>View and add job equipment below.</h3><br>
+        <h5>Add new equipment</h5>
+        <!--  Form for adding a new piece of equipment to the database -->
+        <form id="addEquipmentForm" method="POST" action="/AddEquipment">
+            <label for="ename">Equipment Name:</label><br>
+            <input type="text" id="ename" name="ename"><br><br>
+            <label for="etype">Equipment Type:</label><br>
+            <input type="text" id="etype" name="etype"><br><br>
+            <label for="eweight">Equipment Weight:</label><br>
+            <input type="number" id="eweight" name="eweight" min="0"><br><br>
+            <label for="ftype">Fuel Type:</label><br>
+            <input type="text" id="ftype" name="ftype"><br><br>
+            <label for="edate">Purchase Date:</label><br>
+            <input type="date" id="edate" name="edate"><br><br>
+            <input type="submit" value="Submit"><br>
+        </form>       
+        <br>
+
+        <h5>Browse existing equipment</h5>
+        <!-- Table for displaying equipment -->
+        <table>
+        <thead>
+        <tr>
+            <th>Equipment ID</th>
+            <th>Equipment Name</th>
+            <th>Equipment Type</th>
+            <th>Equipment Weight</th>
+            <th>Fuel Type</th>
+            <th>Purchase Date</th>
+        </thead>
+        <tbody>
+        <!--  This loop iterates over each returned row and populates each td with the row's attributes -->
+        <% results.forEach(function(thing){ %>
+        <tr>
+            <td><%= thing.equip_id %></td>
+            <td><%= thing.equip_name %></td>
+            <td><%= thing.equip_type %></td>
+            <td><%= thing.equip_weight %></td>
+            <td><%= thing.equip_fuel_type %></td>
+            <td><%= thing.equip_purchase_date %></td>
+        </tr>
+        <% }) %>
+        </tbody>
+        </table>
+        <!-- Fix table layout -->
+        <style type="text/css">
+        table {
+        border-collapse: separate;
+        margin-left: -12px !important;
+        }
+        </style>        
+    </div>
+</main>
+
+<!-- Footer stub -->
+<footer>
+    <%- include ('../partials/footer') %>
+</footer>
+
+</body>
+</html>

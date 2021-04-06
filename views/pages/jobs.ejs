@@ -1,0 +1,80 @@
+<!-- views/pages/index.ejs -->
+
+<!--  Doctype and head tags -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ('../partials/head') %>
+</head>
+<body class="container">
+
+<!-- Header stub -->
+<header>
+    <%- include ('../partials/dashboardHeader') %>
+</header>
+
+<main>
+    <!-- primary div -->
+    <div class="jumbotron">
+        <h1>Jobs</h1>
+        <h3>View and add jobs below.</h3><br>
+        <h5>Add a new job</h5>
+        <!--  Form for adding a new job to the database -->
+        <form id="addJobForm" method="POST" action="/AddJob">
+            <label for="jname">Job Name:</label><br>
+            <input type="text" id="jname" name="jname"><br><br>
+            <label for="cname">Company Name:</label><br>
+            <select type="text" id="cname" name="cname">
+            <option value="">None</option>
+            <!--  This loop iterates over each row in Companies and populates the FK drowdown accordingly -->
+            <% compResults.forEach(function(comp){ %>
+                <option value="<%= comp.company_id %>"><%= comp.company_name %></option>
+            <% }) %>
+            </select><br><br>
+            <label for="jlocation">Job Location:</label><br>
+            <input type="text" id="jlocation" name="jlocation"><br><br>
+            <input type="submit" value="Submit"><br>
+        </form>       
+        <br>
+
+        <h5>Browse existing jobs</h5>
+        <!-- Table for displaying Jobs -->
+        <table>
+        <thead>
+        <tr>
+            <th>Job ID</th>
+            <th>Job Name</th>
+            <th>Company ID</th>
+            <th>Company Name</th>
+            <th>Job Location</th>
+        </thead>
+        <tbody>
+        <!--  This loop iterates over each returned row and populates each td with the row's attributes -->
+        <% results.forEach(function(thing){ %>
+        <tr>
+            <td><%= thing.job_id %></td>
+            <td><%= thing.job_name %></td>
+            <td><%= thing.company_id %></td>
+            <td><%= thing.company_name %></td>
+            <td><%= thing.location %></td>
+        </tr>
+        <% }) %>
+        </tbody>
+        </table>
+        <!-- Fix table layout -->
+        <style type="text/css">
+        table {
+        border-collapse: separate;
+        margin-left: -12px !important;
+        }
+        </style>    
+    </div>
+</main>
+
+<!-- footer stub -->
+<footer>
+    <%- include ('../partials/footer') %>
+</footer>
+
+</body>
+</html>

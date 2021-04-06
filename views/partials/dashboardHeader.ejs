@@ -1,0 +1,57 @@
+<!-- views/partials/header.ejs -->
+<!--  Partial for dashboard header-->
+
+<!--  Nav bar markup -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="margin-bottom:20px">
+    <a class="navbar-brand" href="/">Construction App</a>
+    <button class="navbar-toggler" id="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!--  enables navbar collapse -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!--  List of navbar items -->
+        <ul class="navbar-nav mr-auto" style="float:right !important;">
+            <li class="nav-item">
+                <a class="nav-link" href="/Dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Jobs">Jobs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Equipment">Equipment</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Companies">Companies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Phases">Phases</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Crews">Crews</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/phaseCrew">Phase_crew</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/equipCrew">Equip_crew</a>
+            </li>
+        </ul>
+    </div>
+    <!--  Toggles the hamburger menu on and off based on the style attribute -->
+    <script>
+        document.getElementById('navbar-toggler').addEventListener("click", function enableHamburgDropdown(submission){
+
+        let isVisible = document.getElementById('navbarSupportedContent').getAttribute('style');
+
+        if (isVisible === 'display: inline !important;') {
+            document.getElementById('navbarSupportedContent').setAttribute('style', 'display: none !important;');
+        }
+        else {
+            document.getElementById('navbarSupportedContent').setAttribute('style', 'display: inline !important;');
+        }
+        });
+    </script>
+</nav>
+
